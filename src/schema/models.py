@@ -10,6 +10,7 @@ class Provider(StrEnum):
     GROQ = auto()
     AWS = auto()
     OLLAMA = auto()
+    AZURE = auto()
     FAKE = auto()
 
 
@@ -17,7 +18,7 @@ class OpenAIModelName(StrEnum):
     """https://platform.openai.com/docs/models/gpt-4o"""
 
     GPT_4O_MINI = "gpt-4o-mini"
-    GPT_4O = "gpt-4o"
+    # GPT_4O = "gpt-4o"
 
 
 class DeepseekModelName(StrEnum):
@@ -61,6 +62,12 @@ class OllamaModelName(StrEnum):
     OLLAMA_GENERIC = "ollama"
 
 
+class AzureModelName(StrEnum):
+    """https://learn.microsoft.com/en-us/azure/ai-services/openai/reference/chat/create#model"""
+
+    AZURE_OPENAI = "gpt-4o"
+
+
 class FakeModelName(StrEnum):
     """Fake model for testing."""
 
@@ -75,5 +82,6 @@ AllModelEnum: TypeAlias = (
     | GroqModelName
     | AWSModelName
     | OllamaModelName
+    | AzureModelName
     | FakeModelName
 )

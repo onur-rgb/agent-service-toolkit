@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Allianz</title>
+    <link rel="stylesheet" href="statics/css/style.css">
+    <link rel="icon" href="statics/images/favicon.ico" type="image/x-icon">
+</head>
+<body>
+<div class="chat-container">
+    <div class="chat-header">
+        <h2>Allianz</h2>
+        <img src="statics/images/allianz-logo.png" alt="Allianz Logo" class="logo">
+    </div>
+    <div class="chat-messages">
+        <div class="date-divider">
+            <span id="today-date">Today</span>
+        </div>
+
+        <div class="message bot-message">
+            <div class="message-content">
+                <p>Allianz <strong>Dijital Asistan</strong>'a hoş geldiniz 💙</p>
+                <div class="message-time" data-timestamp></div>
+            </div>
+        </div>
+
+        <div class="message bot-message">
+            <div class="message-content">
+                <p>Değerli müşterimiz, yapacağınız işlem ve yazışmalar Allianz tarafından kayıt altına alınmakta olup
+                    yazışma sırasında paylaşacağınız kişisel verileriniz, taleplerinizi yerine getirmek için işlenmekte
+                    ve ilgili birimlere iletilmektedir. İşlemlerde özel nitelikli kişisel verilerinizi (sağlık bilgisi
+                    vs. gibi) paylaşmamanız önemle rica olunur, aksi halde görüşmenize canlı destek ile devam edilecek
+                    ve kişisel verilerin korunması mevzuatı kapsamında gerekli ise açık rızanız talep edilebilecektir.
+                    Kişisel verilerinizin işlenmesi ve haklarınız ile ilgili detaylı bilgiye aşağıdaki butona tıklayarak
+                    ulaşabilirsiniz.</p>
+                <div class="message-time" data-timestamp></div>
+            </div>
+        </div>
+
+        <div class="message bot-message">
+            <div class="message-content">
+                <p><strong>Güvenliğiniz için yazışma içeriğinde kredi kart numarası gibi kişisel bilgiler
+                    eklemeyiniz.</strong></p>
+                <div class="message-time" data-timestamp></div>
+            </div>
+        </div>
+
+        <div class="message bot-message">
+            <div class="message-content">
+                <p>Yukarıdaki linkte verilen KVKK Aydınlatma Metni'ni okuduysanız aşağıdaki butonu işaretleyiniz.</p>
+                <div class="message-time" data-timestamp></div>
+            </div>
+        </div>
+    </div>
+    <div class="typing-indicator" id="typingIndicator">
+        <div class="dot"></div>
+        <div class="dot"></div>
+        <div class="dot"></div>
+    </div>
+    <div class="chat-input">
+        <div class="mwc-messageInput">
+                <textarea
+                        class="mwc-messageInputTextArea"
+                        placeholder="Mesajınızı yazabilirsiniz..."
+                        maxlength="1024"
+                ></textarea>
+            <svg xmlns="http://www.w3.org/2000/svg" width="17.096" height="16" alt="Send">
+                <path d="M16.746 7.45L.863.057a.6.6 0 00-.645.084.605.605 0 00-.2.62l1.913 7.238-1.913 7.238a.6.6 0 00.2.62.6.6 0 00.389.142.606.606 0 00.256-.057l15.883-7.394a.605.605 0 00.351-.55.606.606 0 00-.351-.548zM1.525 14.297l1.5-5.691h4.868A.606.606 0 008.499 8a.606.606 0 00-.606-.606H3.029l-1.5-5.691 13.529 6.3z"></path>
+            </svg>
+        </div>
+        <div class="mwc-inputActions">
+            <div id="iconsContainer">
+                <div id="emojiIcon">
+                    <div style="display: inline;" data-tooltipped="" aria-describedby="tippy-tooltip-1"
+                         data-original-title="Emoji">
+                        <i class="css-1ggih2t"></i>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<script>
+    const BASE_URL = "{{ base_url }}";
+    const AUTHORIZATION = "{{ Authorization }}" || "";
+    sessionStorage.setItem("Authorization", AUTHORIZATION);
+</script>
+<script src="statics/js/marked.min.js"></script>
+<script src="statics/js/chat.js"></script>
+</body>
+</html> 

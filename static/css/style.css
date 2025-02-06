@@ -1,0 +1,619 @@
+/* Base styles */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: Arial, sans-serif;
+}
+
+body {
+    background-color: #f0f2f5;
+}
+
+/* Layout */
+.chat-container {
+    max-width: 800px;
+    margin: 20px auto;
+    background: white;
+    border-radius: 10px;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+    height: 90vh;
+    display: flex;
+    flex-direction: column;
+}
+
+/* Header */
+.chat-header {
+    background-color: #003781;
+    color: white;
+    padding: 15px 20px;
+    border-radius: 15px 15px 0 0;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.logo {
+    height: 40px;
+    width: auto;
+}
+
+/* Messages Container */
+.chat-messages {
+    flex: 1;
+    padding: 20px;
+    overflow-y: auto;
+}
+
+/* Message Styles */
+.message {
+    margin-bottom: 15px;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    width: 100%;
+}
+
+.message-content {
+    max-width: 70%;
+    padding: 12px 16px;
+    border-radius: 15px;
+    font-size: 14px;
+    line-height: 1.4;
+}
+
+/* Bot Message Styles */
+.bot-message .message-content {
+    background-image: linear-gradient(104deg, #f0f2f5, #e8eaed);
+    color: #333;
+    margin-left: 5px;
+}
+
+/* User Message Styles */
+.user-message {
+    align-items: flex-end;
+}
+
+.user-message .message-content {
+    background-color: #003781;
+    color: white;
+    margin-right: 0;
+    margin-left: auto;
+}
+
+/* Quick Reply Styles */
+.quick-reply-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin-top: 10px;
+    gap: 8px;
+    width: 100%;
+    transform: translateX(-15%);
+}
+
+.quick-reply-button {
+    background: transparent;
+    border: 1px solid #003781;
+    color: #003781;
+    padding: 8px 16px;
+    border-radius: 18px;
+    font-size: 14px;
+    cursor: pointer;
+    transition: all 0.2s;
+    text-decoration: none;
+    text-align: center;
+    width: fit-content;
+    min-width: 150px;
+    max-width: 80%;
+}
+
+.kvkk-button {
+    width: auto;
+    padding: 8px 24px;
+}
+
+.confirm-button {
+    width: auto;
+    padding: 8px 32px;
+}
+
+.quick-reply-button:hover:not(.disabled) {
+    background: #003781;
+    color: white;
+}
+
+.quick-reply-button.disabled {
+    background: #f0f2f5;
+    border-color: #ccc;
+    color: #666;
+    cursor: not-allowed;
+    opacity: 0.7;
+}
+
+.mwc-messageInputTextArea:disabled {
+    background: #f5f5f5;
+    cursor: not-allowed;
+}
+
+/* Input Area */
+.chat-input {
+    padding: 15px 20px;
+    background: white;
+    border-top: 1px solid #eee;
+}
+
+.mwc-messageInput {
+    display: flex;
+    align-items: center;
+    justify-content: center; /* Ensure it centers items */
+    gap: 10px;
+    background: white;
+    border: 1px solid #ddd;
+    border-radius: 20px;
+    padding: 8px 16px;
+    width: 100%; /* Ensure it does not expand unnecessarily */
+}
+
+.mwc-messageInputTextArea {
+    flex: 1;
+    border: none;
+    outline: none;
+    resize: none;
+    min-height: 24px;
+    font-family: inherit;
+    font-size: 14px;
+    padding: 4px 0;
+    background: transparent;
+}
+
+.mwc-messageInput svg {
+    cursor: pointer;
+    fill: #003781;
+    transition: fill 0.2s;
+    width: 24px; /* Set a reasonable width */
+    height: 24px; /* Set a reasonable height */
+}
+
+.mwc-messageInput svg:hover {
+    fill: #1557b0;
+}
+
+.mwc-inputActions {
+    margin-top: 8px;
+}
+
+#iconsContainer {
+    display: flex;
+    gap: 12px;
+}
+
+.css-1ggih2t {
+    cursor: pointer;
+    opacity: 0.7;
+    transition: opacity 0.2s;
+}
+
+.css-1ggih2t:hover {
+    opacity: 1;
+}
+
+button {
+    padding: 8px;
+    background-color: transparent;
+    color: #003781;
+    border: none;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+}
+
+button:hover {
+    background-color: #1557b0;
+}
+
+/* Utilities */
+.message-time {
+    font-size: 9px;
+    margin-top: 4px;
+    opacity: 0.7;
+    display: flex;
+    align-items: center;
+    gap: 4px;
+}
+
+.message-status {
+    width: 16px;
+    height: 16px;
+    margin-left: 4px;
+}
+
+.date-divider {
+    text-align: center;
+    margin: 20px 0;
+    position: relative;
+}
+
+.date-divider span {
+    background: #f0f2f5;
+    padding: 5px 15px;
+    border-radius: 15px;
+    font-size: 12px;
+    color: #65676B;
+}
+
+/* Typing Indicator */
+.typing-indicator {
+    display: none; /* Hidden by default */
+    margin-top: 10px;
+    margin-left: 20px;
+    margin-bottom: 10px;
+    align-items: center;
+}
+
+.dot {
+    width: 3px; /* Make the dots smaller */
+    height: 3px; /* Make the dots smaller */
+    margin: 0 3px; /* Adjust margin for smaller dots */
+    border-radius: 50%;
+    background-color: #003781; /* Change to your desired color */
+    animation: typing 1s infinite;
+}
+
+.dot:nth-child(1) {
+    animation-delay: 0s;
+}
+
+.dot:nth-child(2) {
+    animation-delay: 0.2s;
+}
+
+.dot:nth-child(3) {
+    animation-delay: 0.4s;
+}
+
+@keyframes typing {
+    0%, 20% {
+        transform: scale(1);
+    }
+    50% {
+        transform: scale(1.5);
+    }
+    100% {
+        transform: scale(1);
+    }
+}
+
+/* Chat Status */
+.chat-status {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    color: white;
+    font-size: 12px;
+}
+
+.status-indicator {
+    width: 8px;
+    height: 8px;
+    border-radius: 50%;
+    background: #4CAF50;
+}
+
+.status-indicator.offline {
+    background: #f44336;
+}
+
+/* Input Actions */
+.input-actions {
+    display: flex;
+    gap: 12px;
+    padding: 8px 16px;
+}
+
+.action-button {
+    background: none;
+    border: none;
+    cursor: pointer;
+    padding: 4px;
+    border-radius: 50%;
+    transition: background-color 0.2s;
+}
+
+.action-button:hover:not(:disabled) {
+    background: #f0f2f5;
+}
+
+.action-button svg {
+    fill: #003781;
+    opacity: 0.7;
+    transition: opacity 0.2s;
+}
+
+.action-button:hover:not(:disabled) svg {
+    opacity: 1;
+}
+
+.action-button:disabled {
+    cursor: not-allowed;
+}
+
+.action-button:disabled svg {
+    opacity: 0.3;
+}
+
+/* Emoji Picker */
+.emoji-picker {
+    position: absolute;
+    bottom: 80px;
+    right: 20px;
+    background: white;
+    border-radius: 10px;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+    z-index: 1000;
+}
+
+.emoji-picker.hidden {
+    display: none;
+}
+
+/* Message Animations */
+.message {
+    animation: messageSlide 0.3s ease-out;
+    opacity: 0;
+    animation-fill-mode: forwards;
+}
+
+@keyframes messageSlide {
+    from {
+        opacity: 0;
+        transform: translateY(20px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+/* Quick Reply Button Animations */
+.quick-reply-button {
+    animation: buttonPop 0.3s ease-out;
+}
+
+@keyframes buttonPop {
+    from {
+        opacity: 0;
+        transform: scale(0.9);
+    }
+    to {
+        opacity: 1;
+        transform: scale(1);
+    }
+}
+
+.typing-indicator .message-content {
+    display: flex;
+    gap: 4px;
+    padding: 12px 16px;
+}
+
+.typing-indicator .dot {
+    width: 8px;
+    height: 8px;
+    background: #1a73e8;
+    border-radius: 50%;
+    animation: typing 1.4s infinite;
+}
+
+.typing-indicator .dot:nth-child(2) {
+    animation-delay: 0.2s;
+}
+
+.typing-indicator .dot:nth-child(3) {
+    animation-delay: 0.4s;
+}
+
+@keyframes typing {
+    0%, 60%, 100% {
+        transform: translateY(0);
+    }
+    30% {
+        transform: translateY(-4px);
+    }
+}
+
+.error-message .message-content {
+    background-color: #ffebee;
+    color: #c62828;
+}
+
+.bot-message {
+    position: relative;
+}
+
+.bot-message::before {
+    content: '';
+    position: absolute;
+    left: 0;
+    top: 0;
+    width: 28px;
+    height: 28px;
+    background-image: url('path-to-your-bot-avatar.png');
+    background-size: cover;
+    border-radius: 50%;
+}
+
+.date-divider {
+    text-align: center;
+    margin: 20px 0;
+    position: relative;
+}
+
+.date-divider span {
+    background: #f0f2f5;
+    padding: 5px 15px;
+    border-radius: 15px;
+    font-size: 12px;
+    color: #65676B;
+}
+
+.message-time {
+    font-size: 9px;
+    margin-top: 4px;
+    opacity: 0.7;
+    text-align: right;
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
+    gap: 4px;
+}
+
+.quick-reply-buttons {
+    margin-top: 8px;
+}
+
+.quick-reply-button {
+    background: white;
+    border: 1px solid #003781;
+    color: #003781;
+    padding: 8px 16px;
+    border-radius: 18px;
+    font-size: 14px;
+    cursor: pointer;
+    transition: all 0.2s;
+}
+
+.quick-reply-button:hover {
+    background: #003781;
+    color: white;
+}
+
+.bot-message {
+    position: relative;
+    padding-left: 35px;
+}
+
+.bot-message::before {
+    content: '';
+    position: absolute;
+    left: 0;
+    top: 0;
+    width: 28px;
+    height: 28px;
+    background-image: url('../images/allianz-logo.png');
+    background-size: cover;
+    border-radius: 50%;
+}
+
+/* Update user message styling */
+.user-message .message-content {
+    background-color: #003781;
+    color: white;
+}
+
+/* Update quick reply buttons */
+.quick-reply-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin-top: 10px;
+    gap: 8px;
+    width: 100%;
+}
+
+.quick-reply-button {
+    background: transparent;
+    border: 1px solid #003781;
+    color: #003781;
+    padding: 8px 16px;
+    border-radius: 18px;
+    font-size: 14px;
+    cursor: pointer;
+    transition: all 0.2s;
+    text-decoration: none;
+    text-align: center;
+    width: fit-content;
+    min-width: 150px;
+    max-width: 80%;
+}
+
+.kvkk-button {
+    width: auto;
+    padding: 8px 24px;
+}
+
+.confirm-button {
+    width: auto;
+    padding: 8px 32px;
+}
+
+.quick-reply-button:hover:not(.disabled) {
+    background: #003781;
+    color: white;
+}
+
+.quick-reply-button.disabled {
+    background: #f0f2f5;
+    border-color: #ccc;
+    color: #666;
+    cursor: not-allowed;
+    opacity: 0.7;
+}
+
+.mwc-messageInputTextArea:disabled {
+    background: #f5f5f5;
+    cursor: not-allowed;
+}
+
+/* Add specific styling for user confirmation message */
+.user-message .message-content p {
+    color: white;
+}
+
+/* Ensure the double-tick icon is white in user messages */
+.user-message .message-status {
+    filter: brightness(0) invert(1);
+}
+
+/* Style for the message content to ensure proper width */
+.message-content {
+    max-width: 70%;
+    padding: 12px 16px;
+    border-radius: 15px;
+    font-size: 14px;
+    width: fit-content;
+}
+
+/* Ensure bot messages and buttons align properly */
+.bot-message {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    width: 100%;
+}
+
+/* Add transition for smooth state changes */
+.quick-reply-button {
+    transition: all 0.3s ease;
+}
+
+
+
+.message-content p {
+    margin: 0.5em 0;
+    line-height: 1.5;
+}
+
+.message-content pre {
+    background: #f4f4f4;
+    padding: 10px;
+    border-radius: 5px;
+    overflow-x: auto;
+}
+
+.message-content code {
+    background: #f9f2f4;
+    color: #c7254e;
+    padding: 2px 4px;
+    border-radius: 4px;
+}

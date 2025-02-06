@@ -6,7 +6,7 @@ from langchain_anthropic import ChatAnthropic
 from langchain_community.chat_models import FakeListChatModel
 from langchain_groq import ChatGroq
 from langchain_ollama import ChatOllama
-from langchain_openai import ChatOpenAI
+from langchain_openai import ChatOpenAI, AzureChatOpenAI
 
 from core.llm import get_model
 from schema.models import (
@@ -15,6 +15,7 @@ from schema.models import (
     GroqModelName,
     OllamaModelName,
     OpenAIModelName,
+    AzureModelName,
 )
 
 
@@ -59,6 +60,13 @@ def test_get_model_ollama():
         assert model.model == "llama3.3"
         assert model.temperature == 0.5
 
+
+def test_get_model_azure():
+    with patch.dict(os.environ, {"AZURE_OPENAI_API_KEY": "test_key"}):
+        model = get_model(AzureModelName.AZURE_OPENAI)
+        assert isinstance(model, AzureChatOpenAI)
+        assert model.model == "gpt-4o"
+        assert model.temperature == 0.5
 
 def test_get_model_fake():
     model = get_model(FakeModelName.FAKE)

@@ -7,13 +7,14 @@ from langchain_community.chat_models import FakeListChatModel
 from langchain_google_genai import ChatGoogleGenerativeAI
 from langchain_groq import ChatGroq
 from langchain_ollama import ChatOllama
-from langchain_openai import ChatOpenAI
+from langchain_openai import ChatOpenAI, AzureChatOpenAI
 
 from core.settings import settings
 from schema.models import (
     AllModelEnum,
     AnthropicModelName,
     AWSModelName,
+    AzureModelName,
     DeepseekModelName,
     FakeModelName,
     GoogleModelName,
@@ -24,11 +25,12 @@ from schema.models import (
 
 _MODEL_TABLE = {
     OpenAIModelName.GPT_4O_MINI: "gpt-4o-mini",
-    OpenAIModelName.GPT_4O: "gpt-4o",
+    # OpenAIModelName.GPT_4O: "gpt-4o",
     DeepseekModelName.DEEPSEEK_CHAT: "deepseek-chat",
     AnthropicModelName.HAIKU_3: "claude-3-haiku-20240307",
     AnthropicModelName.HAIKU_35: "claude-3-5-haiku-latest",
     AnthropicModelName.SONNET_35: "claude-3-5-sonnet-latest",
+    AzureModelName.AZURE_OPENAI: "gpt-4o",
     GoogleModelName.GEMINI_15_FLASH: "gemini-1.5-flash",
     GroqModelName.LLAMA_31_8B: "llama-3.1-8b-instant",
     GroqModelName.LLAMA_33_70B: "llama-3.3-70b-versatile",
@@ -71,6 +73,13 @@ def get_model(model_name: AllModelEnum, /) -> ModelT:
         return ChatGroq(model=api_model_name, temperature=0.5)
     if model_name in AWSModelName:
         return ChatBedrock(model_id=api_model_name, temperature=0.5)
+    if model_name in AzureModelName:
+        return AzureChatOpenAI(
+            azure_deployment=settings.AZURE_OPENAI_DEPLOYMENT_NAME,
+            temperature=0.5,
+            streaming=True,
+            api_version=settings.AZURE_OPENAI_API_VERSION,
+        )
     if model_name in OllamaModelName:
         if settings.OLLAMA_BASE_URL:
             chat_ollama = ChatOllama(

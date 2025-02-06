@@ -23,29 +23,36 @@ from schema.task_data import TaskData, TaskDataStatus
 # The app heavily uses AgentClient to interact with the agent's FastAPI endpoints.
 
 
-APP_TITLE = "Agent Service Toolkit"
-APP_ICON = "🧰"
+APP_TITLE = "Orbina AI Chatbot"
+PAGE_ICON = "media/logo.ico"  # or "media/logo.png" or "media/logo.svg"
 
 
 async def main() -> None:
     st.set_page_config(
         page_title=APP_TITLE,
-        page_icon=APP_ICON,
+        page_icon=PAGE_ICON,
         menu_items={},
     )
 
-    # Hide the streamlit upper-right chrome
-    st.html(
+    # Add background image and hide status widget
+    st.markdown(
         """
         <style>
+        .stApp {
+            background-image: media/login.png);
+            background-size: cover;
+            background-repeat: no-repeat;
+        }
         [data-testid="stStatusWidget"] {
-                visibility: hidden;
-                height: 0%;
-                position: fixed;
-            }
+            visibility: hidden;
+            height: 0%;
+            position: fixed;
+        }
         </style>
         """,
+        unsafe_allow_html=True,
     )
+    
     if st.get_option("client.toolbarMode") != "minimal":
         st.set_option("client.toolbarMode", "minimal")
         await asyncio.sleep(0.1)
@@ -83,8 +90,12 @@ async def main() -> None:
 
     # Config options
     with st.sidebar:
-        st.header(f"{APP_ICON} {APP_TITLE}")
-        ""
+        st.header(APP_TITLE)
+        
+        # Add the Orbina logo
+        st.image("media/logo-small.svg", use_container_width=True)
+        
+        ""  # Add a space after the logo
         "Full toolkit for running an AI agent service built with LangGraph, FastAPI and Streamlit"
         with st.popover(":material/settings: Settings", use_container_width=True):
             model_idx = agent_client.info.models.index(agent_client.info.default_model)
@@ -98,51 +109,51 @@ async def main() -> None:
             )
             use_streaming = st.toggle("Stream results", value=True)
 
-        @st.dialog("Architecture")
-        def architecture_dialog() -> None:
-            st.image(
-                "https://github.com/JoshuaC215/agent-service-toolkit/blob/main/media/agent_architecture.png?raw=true"
-            )
-            "[View full size on Github](https://github.com/JoshuaC215/agent-service-toolkit/blob/main/media/agent_architecture.png)"
-            st.caption(
-                "App hosted on [Streamlit Cloud](https://share.streamlit.io/) with FastAPI service running in [Azure](https://learn.microsoft.com/en-us/azure/app-service/)"
-            )
+        # @st.dialog("Architecture")
+        # def architecture_dialog() -> None:
+        #     st.image(
+        #         "https://github.com/JoshuaC215/agent-service-toolkit/blob/main/media/agent_architecture.png?raw=true"
+        #     )
+        #     "[View full size on Github](https://github.com/JoshuaC215/agent-service-toolkit/blob/main/media/agent_architecture.png)"
+        #     st.caption(
+        #         "App hosted on [Streamlit Cloud](https://share.streamlit.io/) with FastAPI service running in [Azure](https://learn.microsoft.com/en-us/azure/app-service/)"
+        #     )
 
-        if st.button(":material/schema: Architecture", use_container_width=True):
-            architecture_dialog()
+        # if st.button(":material/schema: Architecture", use_container_width=True):
+        #     architecture_dialog()
 
-        with st.popover(":material/policy: Privacy", use_container_width=True):
-            st.write(
-                "Prompts, responses and feedback in this app are anonymously recorded and saved to LangSmith for product evaluation and improvement purposes only."
-            )
+        # with st.popover(":material/policy: Privacy", use_container_width=True):
+        #     st.write(
+        #         "Prompts, responses and feedback in this app are anonymously recorded and saved to LangSmith for product evaluation and improvement purposes only."
+        #     )
 
-        @st.dialog("Share/resume chat")
-        def share_chat_dialog() -> None:
-            session = st.runtime.get_instance()._session_mgr.list_active_sessions()[0]
-            st_base_url = urllib.parse.urlunparse(
-                [session.client.request.protocol, session.client.request.host, "", "", "", ""]
-            )
-            # if it's not localhost, switch to https by default
-            if not st_base_url.startswith("https") and "localhost" not in st_base_url:
-                st_base_url = st_base_url.replace("http", "https")
-            chat_url = f"{st_base_url}?thread_id={st.session_state.thread_id}"
-            st.markdown(f"**Chat URL:**\n```text\n{chat_url}\n```")
-            st.info("Copy the above URL to share or revisit this chat")
+        # @st.dialog("Share/resume chat")
+        # def share_chat_dialog() -> None:
+        #     session = st.runtime.get_instance()._session_mgr.list_active_sessions()[0]
+        #     st_base_url = urllib.parse.urlunparse(
+        #         [session.client.request.protocol, session.client.request.host, "", "", "", ""]
+        #     )
+        #     # if it's not localhost, switch to https by default
+        #     if not st_base_url.startswith("https") and "localhost" not in st_base_url:
+        #         st_base_url = st_base_url.replace("http", "https")
+        #     chat_url = f"{st_base_url}?thread_id={st.session_state.thread_id}"
+        #     st.markdown(f"**Chat URL:**\n```text\n{chat_url}\n```")
+        #     st.info("Copy the above URL to share or revisit this chat")
 
-        if st.button(":material/upload: Share/resume chat", use_container_width=True):
-            share_chat_dialog()
+        # if st.button(":material/upload: Share/resume chat", use_container_width=True):
+        #     share_chat_dialog()
 
-        "[View the source code](https://github.com/JoshuaC215/agent-service-toolkit)"
-        st.caption(
-            "Made with :material/favorite: by [Joshua](https://www.linkedin.com/in/joshua-k-carroll/) in Oakland"
-        )
+        # "[View the source code](https://github.com/JoshuaC215/agent-service-toolkit)"
+        # st.caption(
+        #     "Made with :material/favorite: by [Joshua](https://www.linkedin.com/in/joshua-k-carroll/) in Oakland"
+        # )
 
     # Draw existing messages
     messages: list[ChatMessage] = st.session_state.messages
 
     if len(messages) == 0:
-        WELCOME = "Hello! I'm an AI-powered research assistant with web search and a calculator. Ask me anything!"
-        with st.chat_message("ai"):
+        WELCOME = "Merhaba! Ben web araması ve hesap makinesi ile donatılmış bir yapay zeka destekli araştırma asistanıyım. Bana her şeyi sorabilirsiniz!"
+        with st.chat_message("assistant", avatar="media/logo-small.svg"):
             st.write(WELCOME)
 
     # draw_messages() expects an async iterator over messages
@@ -171,7 +182,7 @@ async def main() -> None:
                     thread_id=st.session_state.thread_id,
                 )
                 messages.append(response)
-                st.chat_message("ai").write(response.content)
+                st.chat_message("assistant", avatar="media/logo-small.svg").write(response.content)
             st.rerun()  # Clear stale containers
         except AgentClientError as e:
             st.error(f"Error generating response: {e}")
@@ -222,7 +233,7 @@ async def draw_messages(
             if not streaming_placeholder:
                 if last_message_type != "ai":
                     last_message_type = "ai"
-                    st.session_state.last_message = st.chat_message("ai")
+                    st.session_state.last_message = st.chat_message("assistant", avatar="media/logo-small.svg")
                 with st.session_state.last_message:
                     streaming_placeholder = st.empty()
 
@@ -249,7 +260,7 @@ async def draw_messages(
                 # If the last message type was not AI, create a new chat message
                 if last_message_type != "ai":
                     last_message_type = "ai"
-                    st.session_state.last_message = st.chat_message("ai")
+                    st.session_state.last_message = st.chat_message("assistant", avatar="media/logo-small.svg")
 
                 with st.session_state.last_message:
                     # If the message has content, write it out.
